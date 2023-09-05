@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-
 import java.util.List;
 
 @Service
@@ -94,10 +93,6 @@ public class BoardServiceImpl implements BoardService {
             if(imgFile.exists()){
                 //이미지 파일이 존재하는 경우에만 레시피 객체에 이미지 경로 추가
                 recipe.setMainPath(mainPath);
-            }else{
-                //이미지 파일이 없을 경우 기본 이미지 경로로 설정 (추후 상대경로로 변경)
-                String defaultPath = "/Users/sujeong/Documents/workspace/images/default.png";
-                recipe.setMainPath(defaultPath);
             }
         }
         //수정된 게시글 목록 반환
@@ -136,10 +131,6 @@ public class BoardServiceImpl implements BoardService {
             if (imgFile.exists()) {
                 //이미지 파일이 존재하는 경우에만 레시피 객체에 이미지 경로 추가
                 recipe.setMainPath(mainPath);
-            } else {
-                //이미지 파일이 없을 경우 기본 이미지 경로로 설정 (추후 상대경로로 변경)
-                String defaultPath = "/Users/sujeong/Documents/workspace/images/default.png";
-                recipe.setMainPath(defaultPath);
             }
         }
         //수정된 게시글 목록 반환
