@@ -48,7 +48,6 @@
         FROM recipe r
         <include refid="searchCondition"/> <!--검색조건 포함-->
         ORDER BY r.rcp_num DESC
-<!--        LIMIT #{startRowNum}, #{endRowNum}-->
     </select>
 
     <!--게시글 상세 조회-->
@@ -72,7 +71,6 @@
         JOIN user u ON r.user_num = u.user_num
         WHERE r.user_num = #{userNum}
         ORDER BY r.rcp_num DESC
-        <!--        LIMIT #{startRowNum}, #{endRowNum} -->
     </select>
 
     <!--카테고리 별 게시물 조회-->

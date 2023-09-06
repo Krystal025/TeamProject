@@ -43,7 +43,6 @@
         JOIN user u ON r.user_num = u.user_num
         WHERE r.rcp_num=#{rcpNum}
         ORDER BY r.rpl_num
-<!--        LIMIT #{startRowNum}, #{endRowNum} -->
     </select>
 
     <!--나의 댓글 조회-->

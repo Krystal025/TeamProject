@@ -71,12 +71,11 @@ public class BoardServiceImpl implements BoardService {
             //서브 이미지 수정
             if(!subImages.isEmpty()){
                 int rcpNum = dto.getRcpNum();
-                //반복문 돌면서 삭제할 이미지 번호를 읽어와서 삭제한다.
+                //반복문 돌면서 삭제할 이미지 번호를 읽어오며 삭제
                 for(int tmp:dto.getSubNums()){
+                    //기존 서브 이미지 삭제
                     subImgService.deleteImg(tmp);
                 }
-                //기존 서브 이미지 삭제
-                //subImgService.deleteImg(subImgDto.getSubNum());
                 //새로운 서브 이미지 저장
                 subImgService.saveImg(rcpNum, subImages);
             }
