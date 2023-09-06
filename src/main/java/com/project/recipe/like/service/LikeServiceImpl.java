@@ -48,6 +48,7 @@ public class LikeServiceImpl implements LikeService {
         return likeMapper.isLikedByUser(dto);
     }
 
+    //좋아요 순위별로 조회
     @Override
     public List<LikeDto> orderByLike() {
         LikeDto dto = new LikeDto();

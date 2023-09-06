@@ -4,13 +4,16 @@
 
     <!-- 좋아요 추가 -->
     <insert id="insertLike">
-        INSERT INTO party_like_table (user_num, post_id)
-        VALUES (#{userNum}, #{postId})
+        INSERT INTO party_like_table
+            (user_num, post_id)
+        VALUES
+            (#{userNum}, #{postId})
     </insert>
 
     <!-- 좋아요 삭제 -->
     <delete id="deleteLikeByUserAndPost">
-        DELETE FROM party_like_table WHERE user_num = #{userNum} AND post_id = #{postId}
+        DELETE FROM party_like_table
+        WHERE user_num = #{userNum} AND post_id = #{postId}
     </delete>
 
     <!-- 특정 게시글에 대한 좋아요 갯수 조회 -->

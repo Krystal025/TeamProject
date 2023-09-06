@@ -12,11 +12,10 @@ public class LikesServiceImpl implements LikesService {
     //의존성 주입
     private final LikesMapper likesMapper;
 
-
     @Override
     public String toggleLike(LikesDto likesDto) {
-        if (likesMapper.isLikedByUser(likesDto.getUserNum(), likesDto.getPostId())) {
-            likesMapper.deleteLikeByUserAndPost(likesDto.getUserNum(), likesDto.getPostId());
+        if (likesMapper.isLikedByUser(likesDto)) {
+            likesMapper.deleteLikeByUserAndPost(likesDto);
             return "Unliked successfully";
         } else {
             likesMapper.insertLike(likesDto);
@@ -30,7 +29,8 @@ public class LikesServiceImpl implements LikesService {
     }
 
     @Override
-    public boolean isLikedByUser(int userNum, int postId) {
-        return likesMapper.isLikedByUser(userNum, postId);
+    public boolean isLikedByUser(LikesDto likesDto) {
+
+        return likesMapper.isLikedByUser(likesDto);
     }
 }

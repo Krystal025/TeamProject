@@ -17,20 +17,28 @@
 
     <!-- 댓글 삭제 -->
     <delete id="deleteComment">
-        DELETE FROM party_comment WHERE comment_id = #{commentId}
+        DELETE
+        FROM party_comment
+        WHERE comment_id = #{commentId}
     </delete>
 
     <!-- 댓글 ID로 조회 -->
     <select id="selectCommentById" resultType="com.project.party_post.comment.dto.CommentDto">
-        SELECT comment_id AS commentId, post_id AS postId, user_num AS userNum, content, created_at AS createdAt, updated_at AS updatedAt
+        SELECT
+            comment_id AS commentId, post_id AS postId, user_num AS userNum, content,
+            created_at AS createdAt, updated_at AS updatedAt
         FROM party_comment
         WHERE comment_id = #{commentId}
     </select>
 
     <!-- 게시글 ID로 댓글 리스트 조회 -->
-    <select id="selectCommentsByPostId" resultType="com.project.party_post.comment.dto.CommentDto">
-        SELECT comment_id AS commentId, post_id AS postId, user_num AS userNum, content, created_at AS createdAt, updated_at AS updatedAt
-        FROM party_comment
+    <select id="selectCommentsByPostId" parameterType="int" resultType="com.project.party_post.comment.dto.CommentDto">
+        SELECT
+            p.comment_id AS commentId, p.post_id AS postId, p.user_num AS userNum,
+            p.content, created_at AS createdAt, p.updated_at AS updatedAt,
+            u.user_nickname AS userNickname, u.user_profile AS userProfile
+        FROM party_comment p
+        JOIN user u ON p.user_num = u.user_num
         WHERE post_id = #{postId}
     </select>
 

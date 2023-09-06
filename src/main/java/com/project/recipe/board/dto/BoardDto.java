@@ -32,4 +32,5 @@ public class BoardDto {
     private String mainSaveName;  //메인 이미지 저장 파일명
     private MultipartFile imageFile;  //이미지 파일 업로드 처리
     private List<SubImgDto> subImgs; //서브 이미지들
+    private int[] subNums; //서브 이미지 번호들 (삭제할 때 사용)
 }

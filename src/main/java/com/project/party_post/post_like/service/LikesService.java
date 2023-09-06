@@ -6,6 +6,6 @@ public interface LikesService {
 
     String toggleLike(LikesDto likesDto);
     int countLikesByPostId(int postId);
-    boolean isLikedByUser(int userNum, int postId);
+    boolean isLikedByUser(LikesDto likesDto);
 
 }

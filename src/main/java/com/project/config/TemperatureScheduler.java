@@ -19,7 +19,7 @@ public class TemperatureScheduler {
     private int currentTemperature = 20;  // 초기 온도
 
     // 5초마다 이 메서드를 실행
-    @Scheduled(fixedRate = 5000)
+    //@Scheduled(fixedRate = 5000)
     public void publishTemperature() {
         try {
             currentTemperature += 2;  // 온도를 2도씩 증가

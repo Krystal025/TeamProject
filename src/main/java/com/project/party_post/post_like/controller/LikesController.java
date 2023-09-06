@@ -2,6 +2,7 @@ package com.project.party_post.post_like.controller;
 
 import com.project.party_post.post_like.dto.LikesDto;
 import com.project.party_post.post_like.service.LikesService;
+import com.project.recipe.like.dto.LikeDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,9 +27,9 @@ public class LikesController {
         return ResponseEntity.ok(count);
     }
 
-    @GetMapping("/isLiked/{userNum}/{postId}")
-    public ResponseEntity<Boolean> isLikedByUser(@PathVariable int userNum, @PathVariable int postId) {
-        boolean isLiked = likesService.isLikedByUser(userNum, postId);
+    @GetMapping("/isLiked")
+    public ResponseEntity<Boolean> isLikedByUser(@RequestBody LikesDto likesDto) {
+        boolean isLiked = likesService.isLikedByUser(likesDto);
         return ResponseEntity.ok(isLiked);
     }
 }

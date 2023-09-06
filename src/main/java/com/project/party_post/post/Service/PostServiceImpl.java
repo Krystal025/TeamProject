@@ -36,12 +36,18 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public void updatePost(PostDto postDto) {
+        PostImageDto imageDto = new PostImageDto();
+        MultipartFile newImage = imageDto.getImageFile();
+        if(!newImage.isEmpty()){
+            String imageUrl = fileUploadService.uploadFile(newImage, "updated!");
+        }
         PostDto updatedPost = PostDto.builder()
                 .postId(postDto.getPostId())
                 .title(postDto.getTitle())
                 .content(postDto.getContent())
                 .build();
         postMapper.updatePost(updatedPost);
+
     }
 
     @Override

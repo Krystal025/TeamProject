@@ -34,5 +34,5 @@ public interface PostMapper {
     void deleteImagesByPostId(int postId);
 
     //조회수 증가 메서드
-    PostDto incrementViewCount(int postId);
+    void incrementViewCount(int postId);
 }

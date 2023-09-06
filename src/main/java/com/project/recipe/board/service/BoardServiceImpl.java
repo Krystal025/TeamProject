@@ -6,6 +6,7 @@ import com.project.recipe.board.dao.BoardMapper;
 import com.project.recipe.board.dto.BoardDto;
 import com.project.recipe.image.sub.dao.SubImgMapper;
 import com.project.recipe.image.sub.dto.SubImgDto;
+import com.project.recipe.image.sub.service.SubImgService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,9 @@ public class BoardServiceImpl implements BoardService {
 
     @Autowired
     private ImageUploadService imageUpload;
+
+    @Autowired
+    private SubImgService subImgService;
 
     //파일 업로드 경로
     @Value("${file.location}")
@@ -52,16 +56,33 @@ public class BoardServiceImpl implements BoardService {
 
     //게시글 + 메인이미지 수정 처리
     @Override
-    public void updateContent(BoardDto dto) {
-        //새로운 메인 이미지 가져오기
-        MultipartFile newMainImg = dto.getImageFile();
-        //새로운 이미지가 업로드 되었을 경우
-        if(!newMainImg.isEmpty()){
-            String imagePath = uploadAndInsertImage(dto);
-            dto.setMainPath(imagePath);
+    public void updateContent(BoardDto dto, List<MultipartFile> subImages) {
+        try{
+            //새로운 메인 이미지 가져오기
+            MultipartFile newMainImg = dto.getImageFile();
+            //새로운 이미지가 업로드 되었을 경우
+            if(!newMainImg.isEmpty()){
+                String imagePath = uploadAndInsertImage(dto);
+                dto.setMainPath(imagePath);
+            }
+            //게시글 수정
+            rcpMapper.updateRcp(dto);
+            SubImgDto subImgDto = new SubImgDto();
+            //서브 이미지 수정
+            if(!subImages.isEmpty()){
+                int rcpNum = dto.getRcpNum();
+                //반복문 돌면서 삭제할 이미지 번호를 읽어와서 삭제한다.
+                for(int tmp:dto.getSubNums()){
+                    subImgService.deleteImg(tmp);
+                }
+                //기존 서브 이미지 삭제
+                //subImgService.deleteImg(subImgDto.getSubNum());
+                //새로운 서브 이미지 저장
+                subImgService.saveImg(rcpNum, subImages);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        //게시글 수정
-        rcpMapper.updateRcp(dto);
     }
 
     //게시글 삭제 처리 메소드
