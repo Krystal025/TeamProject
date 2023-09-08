@@ -1,13 +1,9 @@
 package com.project.party_post.post.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
-@Getter
-@Builder
+@Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class PostImageDto {

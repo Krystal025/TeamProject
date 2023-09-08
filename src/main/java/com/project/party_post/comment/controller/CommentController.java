@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/comments")
+@RequestMapping("/post/comment")
 @RequiredArgsConstructor
 public class CommentController {
 
@@ -36,14 +36,20 @@ public class CommentController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/{commentId}")
-    public ResponseEntity<CommentDto> getCommentById(@PathVariable int commentId) {
-        return ResponseEntity.ok(commentService.getCommentById(commentId));
-    }
+//    @GetMapping("/{commentId}")
+//    public ResponseEntity<CommentDto> getCommentById(@PathVariable int commentId) {
+//        return ResponseEntity.ok(commentService.getCommentById(commentId));
+//    }
 
     //게시글 댓글 목록 조회
-    @GetMapping("/post/{postId}")
+    @GetMapping("/rplList/{postId}")
     public ResponseEntity<List<CommentDto>> getCommentsByPostId(@PathVariable int postId) {
         return ResponseEntity.ok(commentService.getCommentsByPostId(postId));
+    }
+
+    //나의 댓글 목록 조회
+    @GetMapping("/myRplList/{userNum}/{postId}")
+    public ResponseEntity<List<CommentDto>> getMyRplList(@PathVariable int userNum, @PathVariable int postId){
+        return ResponseEntity.ok(commentService.getMyRplList(userNum, postId));
     }
 }

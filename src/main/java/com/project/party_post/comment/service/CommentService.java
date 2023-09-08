@@ -16,4 +16,6 @@ public interface CommentService {
     CommentDto getCommentById(int commentId);
     //하나의 게시물의 대한 댓글 조회
     List<CommentDto> getCommentsByPostId(int postId);
+    //나의 댓글 조회
+    List<CommentDto> getMyRplList(int userNum, int postId);
 }

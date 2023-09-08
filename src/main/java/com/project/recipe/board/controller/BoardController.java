@@ -1,22 +1,28 @@
 package com.project.recipe.board.controller;
 
-import com.project.exception.CustomException.ImageMissingException;
 import com.project.recipe.board.dto.BoardDto;
 import com.project.recipe.board.service.BoardService;
-import com.project.recipe.image.sub.dto.SubImgDto;
 import com.project.recipe.image.sub.service.SubImgService;
-import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.tomcat.util.http.fileupload.impl.IOFileUploadException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.HashMap;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 import java.util.List;
-import java.util.Map;
+
 
 @Slf4j
 @RestController
@@ -27,6 +33,18 @@ public class BoardController {
     private BoardService rcpService;
     @Autowired
     private SubImgService subImgService;
+
+    @Value("${file.location}")
+    private String imgPath;
+    @GetMapping(
+            value = "/image/{mainPath}",
+            produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_GIF_VALUE})
+    @ResponseBody
+    public byte[] getPostImage(@PathVariable("mainPath") String imgName) throws IOException{
+        String absolutePath = imgPath + File.separator + imgName;
+        InputStream is = new FileInputStream(absolutePath);
+        return IOUtils.toByteArray(is);
+    }
 
     //게시글 작성
     @PostMapping("/insert")
@@ -92,5 +110,11 @@ public class BoardController {
     @GetMapping("/petList")
     public List<BoardDto> getByCategory(@RequestParam int petNum){
         return rcpService.getByCategory(petNum);
+    }
+
+    //사용자 번호로 게시글 번호 조회
+    @GetMapping("/rcpNum")
+    public List<Integer> getRcpNum(@RequestParam int userNum){
+        return rcpService.getRcpNum(userNum);
     }
 }

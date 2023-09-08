@@ -1,12 +1,8 @@
 package com.project.party_post.comment.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Getter
-@Builder
+@Getter @Setter
 @NoArgsConstructor
 public class CommentDto {
 

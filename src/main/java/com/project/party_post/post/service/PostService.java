@@ -1,4 +1,4 @@
-package com.project.party_post.post.Service;
+package com.project.party_post.post.service;
 
 import com.project.party_post.post.dto.PostDto;
 import com.project.party_post.post.dto.PostImageDto;
@@ -7,23 +7,24 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public interface PostService {
-
     //게시글 생성
     void insertPost(PostDto postDto);
     //전체 게시글 조회
-    List<PostDto> selectAllPosts();
+    List<PostDto> getList();
     //하나의 게시글을 조회
-    PostDto selectPostById(int postId);
+    PostDto getDetail(int postId);
     //게시글 수정
-    void updatePost(PostDto postDto);
+    void updatePost(PostDto postDto, MultipartFile image);
     //게시글 삭제
     void deletePost(int postId);
     //이미지 업로드 메서드
-    void insertImages(List<MultipartFile> multipartFiles, int postId);
-    //이미지 조회 메서드
-    List<PostImageDto> getImagesByPostId(int postId);
+    void insertImage(MultipartFile image, int postId);
     //이미지 삭제 메서드
-    public void deleteImagesByPostId(int postId);
+    void deleteImagesByPostId(int postId);
     //게시글 ID로 게시글 정보를 가져오며, 조회수를 1 증가
     void incrementViewCount(int postId);
+    //나의 글 목록 조회
+    List<PostDto> getMyList(int userNum);
+    //사용자 번호로 게시글 번호 조회
+    List<Integer> getPostId(int userNum);
 }

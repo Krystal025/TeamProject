@@ -17,4 +17,6 @@ public class ReplyDto {
     private String rplDeleted;  //댓글 삭제 여부 ('yes' or 'no')
     private String rplRegdate;  //댓글 작성일
     private String userProfile;  //댓글 작성자 프로필
+    private String mainPath;  //메인 이미지 파일 경로
+
 }

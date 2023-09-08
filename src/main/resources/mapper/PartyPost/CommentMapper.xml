@@ -42,4 +42,14 @@
         WHERE post_id = #{postId}
     </select>
 
+    <!--나의 댓글 조회-->
+    <select id="getMyRplList" parameterType="com.project.party_post.comment.dto.CommentDto">
+        SELECT
+            p.comment_id AS commentId, p.post_id AS postId, p.user_num AS userNum,
+            p.content AS content, p.created_at AS createdAt
+        FROM party_comment p
+        JOIN user u ON p.user_num = u.user_num
+        WHERE p.user_num = #{userNum} AND p.post_id = #{postId}
+    </select>
+
 </mapper>

@@ -10,8 +10,8 @@ spring:
   servlet:
     multipart:
       enabled: true
-      max-file-size: 20MB  # 최대 파일 크기 설정
-      max-request-size: 20MB  # 최대 요청 크기 설정
+      max-file-size: 10MB  # 최대 파일 크기 설정
+      max-request-size: 10MB  # 최대 요청 크기 설정
 
 mybatis:
   mapper-locations: classpath:mapper/**/*.xml

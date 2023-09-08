@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
         validateUserNickname(userDto.getUserNickname());
 
         // 이미지 업로드 후 저장 경로를 userProfile에 저장
-        String imagePath = uploadImageAndUpdateProfile(userDto, "users");
+        String imagePath = uploadImageAndUpdateProfile(userDto);
         userDto.setUserProfile(imagePath);
 
 
@@ -70,8 +70,8 @@ public class UserServiceImpl implements UserService {
     }
 
     // 이미지 업로드 및 프로필 경로 업데이트
-    private String uploadImageAndUpdateProfile(UserDto userDto, String subDirectory) {
-        return fileUploadService.uploadFile(userDto.getUserImage(), subDirectory);
+    private String uploadImageAndUpdateProfile(UserDto userDto) {
+        return fileUploadService.uploadFile(userDto.getUserImage());
     }
 
     // 새 토큰 생성

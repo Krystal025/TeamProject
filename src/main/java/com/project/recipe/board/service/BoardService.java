@@ -21,4 +21,6 @@ public interface BoardService {
     List<BoardDto> getMyList(int userNum);
     //카테고리 별 게시글 목록
     List<BoardDto> getByCategory(int petNum);
+    //사용자 번호로 게시글 번호 조회
+    List<Integer> getRcpNum(int userNum);
 }

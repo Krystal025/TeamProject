@@ -4,8 +4,10 @@ import com.project.recipe.board.dto.BoardDto;
 import com.project.recipe.reply.dao.ReplyMapper;
 import com.project.recipe.reply.dto.ReplyDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +16,10 @@ public class ReplySeviceImpl implements ReplyService {
 
     @Autowired
     private ReplyMapper rplMapper;
+
+    //파일 업로드 경로
+    @Value("${file.location}")
+    private String imgPath;
 
     //댓글 저장
     @Override
@@ -41,17 +47,21 @@ public class ReplySeviceImpl implements ReplyService {
         dto.setRcpNum(rcpNum);
         //해당 게시글 번호에 대한 댓글 목록 조회
         List<ReplyDto> rplList = rplMapper.getRplList(dto);
-        //페이징 처리된 댓글 목록 반환
+        //댓글 목록 반환
         return rplList;
     }
 
-    //내가 작성한 댓글 목록 반환
+    //나의 댓글 조회 처리
     @Override
     public List<ReplyDto> getMyRplList(int userNum, int rcpNum) {
+        //dto 객체에 사용자로부터 받은 userNum과 rcpNum을 저장시킴
         ReplyDto dto = new ReplyDto();
         dto.setUserNum(userNum);
         dto.setRcpNum(rcpNum);
+        //특정 사용자가 작성한 댓글에 대한 게시글 목록을 조회
         List<ReplyDto> myRplList = rplMapper.getMyRplList(dto);
+        //나의 댓글 목록 반환
         return myRplList;
+        }
     }
-}
+

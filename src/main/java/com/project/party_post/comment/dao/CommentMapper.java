@@ -3,6 +3,7 @@ package com.project.party_post.comment.dao;
 import com.project.party_post.comment.dto.CommentDto;
 import org.apache.ibatis.annotations.Mapper;
 
+import javax.xml.crypto.dsig.XMLSignature;
 import java.util.List;
 
 @Mapper
@@ -22,4 +23,7 @@ public interface CommentMapper {
 
     //게시글의 댓글 조회
     List<CommentDto> selectCommentsByPostId(int postId);
+
+    //나의 댓글 조회
+    List<CommentDto> getMyRplList(CommentDto commentDto);
 }

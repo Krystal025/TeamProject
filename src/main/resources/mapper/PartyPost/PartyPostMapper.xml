@@ -5,11 +5,11 @@
     <!-- 게시글 생성 -->
     <insert id="insertPost">
         INSERT INTO party_post(user_num, title, content)
-        VALUES(#{userDto.userNum}, #{title}, #{content})
+        VALUES(#{userNum}, #{title}, #{content})
     </insert>
 
     <!-- 게시글 목록 조회 -->
-    <select id="selectAllPosts" resultType="com.project.party_post.post.dto.PostDto">
+    <select id="getList" resultType="com.project.party_post.post.dto.PostDto">
         SELECT
             post_id AS postId, user_num AS userNum, title, content,
             created_at AS createdAt, updated_at AS updatedAt, view_count AS viewCount
@@ -17,12 +17,15 @@
     </select>
 
     <!-- 게시글 상세 조회 -->
-    <select id="selectPostById" resultType="com.project.party_post.post.dto.PostDto">
+    <select id="getDetail" resultType="com.project.party_post.post.dto.PostDto">
         SELECT
-            post_id AS postId, user_num AS userNum, title, content,
-            created_at AS createdAt, updated_at AS updatedAt, view_count AS viewCount
-        FROM party_post
-        WHERE post_id = #{postId}
+            p.post_id AS postId, p.user_num AS userNum, p.title, p.content,
+            p.created_at AS createdAt, p.updated_at AS updatedAt, p.view_count AS viewCount,
+            i.image_url AS imageUrl
+        FROM party_post p
+        JOIN user u ON p.user_num = u.user_num
+        LEFT JOIN post_image i ON p.post_id = i.post_id
+        WHERE p.post_id = #{postId}
     </select>
 
     <!-- 게시글 수정 -->
@@ -44,4 +47,26 @@
         SET view_count = view_count + 1
         WHERE post_id = #{postId}
     </update>
+
+    <!--나의 글 조회-->
+    <select id="getMyList" resultType="com.project.party_post.post.dto.PostDto">
+        SELECT
+        p.post_id AS postId, p.user_num AS userNum,
+        p.title AS title, i.image_url AS imageUrl
+        FROM party_post p
+        JOIN user u ON p.user_num = u.user_num
+        LEFT JOIN post_image i ON p.post_id = i.post_id
+        WHERE p.user_num = #{userNum}
+        ORDER BY p.post_id DESC
+    </select>
+
+    <!--사용자 번호로 게시글 번호 조회-->
+    <select id="getPostId" parameterType="int" resultType="int">
+        SELECT
+            p.post_id AS postId
+        FROM party_post p
+        JOIN user u ON p.user_num = u.user_num
+        WHERE p.user_num=#{userNum}
+    </select>
+
 </mapper>

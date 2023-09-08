@@ -42,4 +42,16 @@ public class CommentServiceImpl implements CommentService{
     public List<CommentDto> getCommentsByPostId(int postId) {
         return commentMapper.selectCommentsByPostId(postId);
     }
+
+    //나의 댓글 조회
+    @Override
+    public List<CommentDto> getMyRplList(int userNum, int postId) {
+        CommentDto dto = new CommentDto();
+        dto.setUserNum(userNum);
+        dto.setPostId(postId);
+        List<CommentDto> myRplList = commentMapper.getMyRplList(dto);
+        return myRplList;
+    }
+
+
 }

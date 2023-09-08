@@ -48,8 +48,8 @@
     <!--나의 댓글 조회-->
     <select id="getMyRplList" parameterType="com.project.recipe.reply.dto.ReplyDto" resultType="com.project.recipe.reply.dto.ReplyDto">
         SELECT
-            r.rcp_num AS rcpNum, r.rpl_num AS rplNum, r.user_num AS userNum, r.rpl_content AS rplContent,
-            r.rpl_deleted AS rplDeleted, r.rpl_regdate AS rplRegdate, u.user_nickname AS userNickname, u.user_profile AS userProfile
+            r.rcp_num AS rcpNum, r.user_num AS userNum, r.rpl_content AS rplContent,
+            r.rpl_deleted AS rplDeleted, r.rpl_regdate AS rplRegdate
         FROM recipe_reply r
         JOIN user u ON r.user_num = u.user_num
         WHERE r.user_num=#{userNum} AND r.rcp_num=#{rcpNum}
